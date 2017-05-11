@@ -78,9 +78,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Sqripts\Building.cs" />
+    <Compile Include="Assets\Sqripts\BuildingBase.cs" />
     <Compile Include="Assets\Sqripts\Generating.cs" />
-    <Compile Include="Assets\Sqripts\GreneratingBaseElements.cs" />
-    <Compile Include="Assets\Sqripts\GreneratingElements.cs" />
+    <Compile Include="Assets\Sqripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Sqripts\PlayersGenerating.cs" />
+    <Compile Include="Assets\Sqripts\PlayersGeneratingBase.cs" />
+    <Compile Include="Assets\Sqripts\ResourcesLoading.cs" />
+    <Compile Include="Assets\Sqripts\ResourcesLoadingBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -49,8 +49,13 @@
      <Compile Include="Assets\Sqripts\Building.cs" />
      <Compile Include="Assets\Sqripts\BuildingBase.cs" />
      <Compile Include="Assets\Sqripts\Generating.cs" />
-     <Compile Include="Assets\Sqripts\ResourcesLoading.cs" />
-     <Compile Include="Assets\Sqripts\ResourcesLoadingBase.cs" />
+     <Compile Include="Assets\Sqripts\Player and Enemies\Moving.cs" />
+     <Compile Include="Assets\Sqripts\Player and Enemies\MovingBase.cs" />
+     <Compile Include="Assets\Sqripts\Player and Enemies\PlayerMovement.cs" />
+     <Compile Include="Assets\Sqripts\Player and Enemies\PlayersGenerating.cs" />
+     <Compile Include="Assets\Sqripts\Player and Enemies\PlayersGeneratingBase.cs" />
+     <Compile Include="Assets\Sqripts\Resources loading\ResourcesLoading.cs" />
+     <Compile Include="Assets\Sqripts\Resources loading\ResourcesLoadingBase.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

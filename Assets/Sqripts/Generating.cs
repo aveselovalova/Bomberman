@@ -5,16 +5,25 @@ using UnityEngine;
 
 public class Generating : MonoBehaviour {
 
-    
+    public int columnsCount = 11;
+    public int rowsCount = 11;
+    public int enemyCount = 3;
+    private float _cameraOffset=0.5f;
+    Building newItem;// = new Building(columnsCount, rowsCount, enemyCount);
+
     // Use this for initialization
     void Start () {
-        Building newItem = new Building();
-        newItem.GetPlane();
+        transform.position = new Vector3(rowsCount / 2f - _cameraOffset, 10  , -5);
+        newItem = new Building(columnsCount, rowsCount, enemyCount);
+        newItem.CreatePlane();
         newItem.GenerateConcreteWalls();
         newItem.GenerateBreakWalls();
+        newItem.SetPlayerOrEnemy(true);
+        newItem.SetPlayerOrEnemy(false);
+        // newItem.SetEnemyPlace();
     }
-  
    
+
     // Update is called once per frame
     void Update () {
 		
