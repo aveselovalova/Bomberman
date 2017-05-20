@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/bomberman.unity
+- path: Assets/Scenes/explosion.unity
   isLoaded: 1
   isActive: 1

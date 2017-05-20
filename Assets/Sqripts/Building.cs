@@ -43,15 +43,17 @@ public class Building : BuildingBase
     public override GameObject CreateConcreteWalls(int xPosition, int zPosition)
     {
         _gameObj = _resource.LoadItem("Walls/ConcreteWall");
-        _gameObj.transform.localScale = new Vector3(_cubeEdge, _cubeEdge, _cubeEdge);
+        _gameObj.transform.localScale = new Vector3(_cubeEdge, 1, _cubeEdge);
         return Instantiate(_gameObj, new Vector3(xPosition, _yCubePosition, zPosition), new Quaternion(0, 0, 0, 0));
     }
     public override GameObject CreateBreakWalls(int xPosition, int zPosition)
     {
         _gameObj = _resource.LoadItem("Walls/BreakWall");
-        _gameObj.transform.localScale = new Vector3(_cubeEdge, _cubeEdge, _cubeEdge);
+        _gameObj.transform.localScale = new Vector3(_cubeEdge, 1, _cubeEdge);
         return Instantiate(_gameObj, new Vector3(xPosition, _yCubePosition, zPosition), new Quaternion(0, 0, 0, 0));
     }
+
+
     //
     //WALLS
     //
@@ -88,11 +90,12 @@ public class Building : BuildingBase
     //
     //PLAYER
     //
-    private GameObject GetPlayer(int xPlayerPosition, int zPlayerPosition)
+    public override GameObject GetPlayer(int xPlayerPosition, int zPlayerPosition)
     {
-        var player = new PlayersGenerating().GetPlayer();
-        if (player.GetComponent<PlayerMovement>() == null)
-            player.AddComponent<PlayerMovement>();
+        var player = _resource.LoadItem("Characters/Player");
+        if (player.GetComponent<PlayerController>() == null)
+            player.AddComponent<PlayerController>();
+      
         return Instantiate(player, new Vector3(xPlayerPosition, 1f, zPlayerPosition), new Quaternion(0, 0, 0, 0));
     }
     
@@ -114,9 +117,11 @@ public class Building : BuildingBase
     //
     //ENEMY
     //
-    public GameObject GetEnemy(int xEnemyPosition, int zEnemyPosition)
+    public override GameObject GetEnemy(int xEnemyPosition, int zEnemyPosition)
     {
-        var enemy = new PlayersGenerating().GetEnemy();
+        var enemy = _resource.LoadItem("Characters/Enemy");
+        if (enemy.GetComponent<EnemiesController>() == null)
+            enemy.AddComponent<EnemiesController>();
         return Instantiate(enemy, new Vector3(xEnemyPosition, 1f, zEnemyPosition), new Quaternion(0, 0, 0, 0));
     }
     //

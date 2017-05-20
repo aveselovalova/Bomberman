@@ -9,7 +9,7 @@ public class Generating : MonoBehaviour {
     public int rowsCount = 11;
     public int enemyCount = 3;
     private float _cameraOffset=0.5f;
-    Building newItem;// = new Building(columnsCount, rowsCount, enemyCount);
+    Building newItem;
 
     // Use this for initialization
     void Start () {
@@ -18,13 +18,10 @@ public class Generating : MonoBehaviour {
         newItem.CreatePlane();
         newItem.GenerateConcreteWalls();
         newItem.GenerateBreakWalls();
-        newItem.SetPlayerOrEnemy(true);
-        newItem.SetPlayerOrEnemy(false);
-        // newItem.SetEnemyPlace();
+        newItem.SetPlayerOrEnemy(true);//player
+        newItem.SetPlayerOrEnemy(false);//enemy
     }
-   
 
-    // Update is called once per frame
     void Update () {
 		
 	}
