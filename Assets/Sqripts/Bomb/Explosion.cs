@@ -4,43 +4,37 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Explosion : BombEffectsBase {
+public class Explosion : MonoBehaviour
+{
 
-    private List<Vector3> _directionsOfExplosion = new List<Vector3> { Vector3.up, Vector3.forward, Vector3.right, Vector3.back, Vector3.left };
-    private List<RaycastHit> _listOfHits = new List<RaycastHit>();
+    private List<Vector3> _directionsOfExplosion = new List<Vector3> {Vector3.forward, Vector3.right, Vector3.back, Vector3.left };
     private Vector3 _explosionPos;
-    GameObject boom;
-    public Explosion()
-    {
-       
-    }
-    protected virtual GameObject DinamicChildObject(GameObject explos,  float xPosition, float zPosition)
-    {
-        var objLocation = new Vector3(Mathf.RoundToInt(xPosition), 0.55f, Mathf.RoundToInt(zPosition));
-        return Instantiate(explos, objLocation, new Quaternion(0, 0, 0, 0));
-    }
-    public void MakeExplosion(GameObject bomb, GameObject explosion, float destroyedRadius, Action<List<RaycastHit>> actionDestroyObj = null)
+   
+    protected void MakeExplosion(GameObject bomb, string explosionName, float destroyedRadius, Action<List<RaycastHit>> actionDestroyObj = null)
     {
         _explosionPos = bomb.transform.position;
-        DestroyRaius(explosion, destroyedRadius);
-        boom = DinamicChildObject(explosion, _explosionPos.x, _explosionPos.z);
-        CheckHits(destroyedRadius);
+        var explosion = new DynamicObjectsCreator().CreateDynamicGameObject(explosionName, _explosionPos);
+        RadiusOfDestroing(explosion, destroyedRadius);
+
+        List<RaycastHit> listOfHits = CheckHits(destroyedRadius);
         if (actionDestroyObj != null)
-                actionDestroyObj(_listOfHits);
+            actionDestroyObj(listOfHits);
     }
-    private void DestroyRaius(GameObject explosion, float radius)
+    private void RadiusOfDestroing(GameObject explosion, float radius)
     {
-        foreach (var r in explosion.GetComponentsInChildren<ParticleSystem>())
-            r.startLifetime = radius;
+        var raysOfExplosion = explosion.GetComponentsInChildren<ParticleSystem>();
+        foreach (var ray in raysOfExplosion)
+            ray.startLifetime = radius;
     }
-    private void CheckHits(float radius)
+    private List<RaycastHit> CheckHits(float radius)
     {
-        Debug.Log(radius);
-        foreach(var direction in _directionsOfExplosion)
+        List<RaycastHit> listOfHits = new List<RaycastHit>();
+        foreach (var direction in _directionsOfExplosion)
         {
-            RaycastHit hit = Physics.RaycastAll(_explosionPos, direction, radius).FirstOrDefault();
+            var hit = Physics.RaycastAll(_explosionPos, direction, radius).FirstOrDefault();
             if (hit.collider != null)
-                _listOfHits.Add(hit);
+                listOfHits.Add(hit);
         }
+        return listOfHits;
     }
 }
