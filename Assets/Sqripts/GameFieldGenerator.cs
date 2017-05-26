@@ -59,7 +59,7 @@ public class GameFieldGenerator : ObjectCreatorBase
     protected override void GenerateBreakWalls()
     {
         System.Random random = new System.Random();
-        int maxCountBreakWalls = (rowsCount-1) * (columnsCount-1) / 4;
+        int maxCountBreakWalls = 15;//(rowsCount-1) * (columnsCount-1) / 4;
         for (int i = 1; i < maxCountBreakWalls; i++)
         {
             int ind1 = random.Next(1, rowsCount- 1);

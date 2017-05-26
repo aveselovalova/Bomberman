@@ -8,15 +8,16 @@ public class Score : MonoBehaviour
 
     private Text _scoresCount;
     private Text _winOrFailText;
+    private Text _bombCountText;
 
     private const int _pointsForEnemy = 100;
     private const int _pointsForIntelEnemy = 200;
     private int _totalScore = 0;
-
     public void Start()
     {
         _scoresCount = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GameInitializer>().scores.GetComponentInChildren<Text>();
         _winOrFailText = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GameInitializer>().winOrfail.GetComponentInChildren<Text>();
+        _bombCountText = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GameInitializer>().bombCounter.GetComponentInChildren<Text>();
     }
 
 
@@ -24,6 +25,10 @@ public class Score : MonoBehaviour
     {
         _scoresCount.text = "Score Count: " + _totalScore.ToString();
         OutputWinText();
+    }
+    public void OutputAvaliableBombCount(int bombCount)
+    {
+        _bombCountText.text = "You have " + bombCount + " bomb";
     }
     public void UpdateScoreForEnemy(Characters enemyType)
     {

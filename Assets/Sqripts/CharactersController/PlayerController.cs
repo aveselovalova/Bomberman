@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MovementController
 {
-    public float speed = 1.5f;
+    public float speed = 3f;
 
     public void FixedUpdate()
     {

@@ -11,7 +11,7 @@ public static class PowerupsGenerator
     {
         var powerupsAmount = 4;
         var probability = _rand.Next(100);
-        var probabilityOfAppearence = 50;
+        var probabilityOfAppearence = 1;
 
         if (probability> probabilityOfAppearence)
              _dynamicObj.CreatePowerUp(((Powerup)_rand.Next(powerupsAmount)).ToString(), powerupPos);

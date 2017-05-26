@@ -18,12 +18,16 @@ public class GameInitializer : MonoBehaviour
     GameFieldGenerator bombermanField;
     public GameObject scores;
     public GameObject winOrfail;
+    public GameObject bombCounter;
     void Start ()
     {
-        transform.position = new Vector3(rowsCount / _cameraXPosRelativelyRows - _cameraOffset , _cameraYPos, _cameraZPos);
+        //  transform.position = new Vector3(rowsCount / _cameraXPosRelativelyRows - _cameraOffset , _cameraYPos, _cameraZPos);
+        transform.position = new Vector3(30 , 30, 15);
 
         scores = new UICreator().LoadUI("UIElements/Canvas");
         winOrfail = new UICreator().LoadUI("UIElements/WinOrFail");
+        bombCounter = new UICreator().LoadUI("UIElements/MaxBombCount");
+
 
         bombermanField = new GameFieldGenerator(columnsCount, rowsCount);
         bombermanField.GenerateFieldWithGameObjects(enemyCount, intelligentEnemy, intelligentEnemyCount);

@@ -11,15 +11,18 @@ public class IntelligentEnemiesController : EnemiesController
 
     private List<Point> _pathToAim;
     private float _waitBeforeUpdate;
-
+    private Point prePlayerPos;
+    
     private void Start()
     {
         _pathToAim = new List<Point>();
         _waitBeforeUpdate = 0.5f;
-
         StartCoroutine(GetNewPath());
     }
-   
+    private void Update()
+    {
+        prePlayerPos = (GetPlayerPosition());//GetRoundPosition.GetRoundPointFromPoint(GetPlayerPosition());
+    }
     protected override void MoveInDirection()
     {
         if (_pathToAim == null)
@@ -62,7 +65,9 @@ public class IntelligentEnemiesController : EnemiesController
         var gameField = GetGameField(GetAllWallsOnPlane());
 
         _pathToAim = AStartAlgorithm.FindPath(gameField, intelEnemyPos, playerPos);
-        yield return new WaitForSeconds(_waitBeforeUpdate);
+       // yield return new WaitForSeconds(_waitBeforeUpdate);
+        yield return new WaitWhile(()=>playerPos==prePlayerPos);
+
         StartCoroutine(GetNewPath());
     }
 

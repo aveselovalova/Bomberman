@@ -9,14 +9,15 @@ public class EnemiesController : MovementController
     protected const float _timeForRotation = 3f;
     protected float _timer = 0;
     private int _directionAmount = 4;
-    private float _speed=1.5f;
-
+    private float _speed=5f;
+    
     private void Start()
     {
         ChoseDirection();
     }
     public void FixedUpdate()
     {
+
         MoveInDirection();
         Move(_speed);
         ChoseRotation();
