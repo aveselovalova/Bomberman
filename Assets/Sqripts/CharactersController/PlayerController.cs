@@ -8,7 +8,6 @@ public class PlayerController : MovementController
 
     public void FixedUpdate()
     {
-        MoveInDirection();
         Move(speed);
         ChoseRotation();
     }

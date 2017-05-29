@@ -21,8 +21,8 @@ public class GameInitializer : MonoBehaviour
     public GameObject bombCounter;
     void Start ()
     {
-        //  transform.position = new Vector3(rowsCount / _cameraXPosRelativelyRows - _cameraOffset , _cameraYPos, _cameraZPos);
-        transform.position = new Vector3(30 , 30, 15);
+          transform.position = new Vector3(rowsCount / _cameraXPosRelativelyRows - _cameraOffset , _cameraYPos, _cameraZPos);
+       //transform.position = new Vector3(30 , 30, 15);
 
         scores = new UICreator().LoadUI("UIElements/Canvas");
         winOrfail = new UICreator().LoadUI("UIElements/WinOrFail");

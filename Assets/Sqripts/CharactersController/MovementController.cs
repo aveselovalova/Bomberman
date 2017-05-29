@@ -7,6 +7,7 @@ public class MovementController : MovementControllerBase
 
     protected override void Move(float speed)
     {
+        MoveInDirection();
         Vector3 movement = new Vector3(horizontalMovement, 0.0f, verticalMovement);
         transform.position += movement * speed * Time.fixedDeltaTime;
     }

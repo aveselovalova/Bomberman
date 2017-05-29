@@ -11,6 +11,7 @@ public class BombLaying : Explosion
     private float _bombLifetime;
     private int _avaliableBombCount;
     private Score _scoreCounter;
+
     private void Start()
     {
         radius = 1;
@@ -34,20 +35,20 @@ public class BombLaying : Explosion
     {
         var bombPosition = GetRoundPosition.RoundXZCoordinate(transform.position);
         var yOffset = 0.3f;
-        var newBombPosition = new Vector3(bombPosition.x, bombPosition.y- yOffset, bombPosition.z);
+        var newBombPosition = new Vector3(bombPosition.x, bombPosition.y - yOffset, bombPosition.z);
 
         var bomb = new DynamicObjectsCreator().CreateDynamicGameObject("Bomb/Bomb", newBombPosition);
 
         _avaliableBombCount++;
-
+        FillBarriersForAllIntelEnemies(newBombPosition);
         yield return new WaitForSeconds(bombLifetime);
 
         bomb.SetActive(false);
+        ClearBarriersForAllIntelEnemies(newBombPosition);
         MakeExplosion(bomb,"Bomb/ExplosionAll", radius, DestroyGameObj);
 
         if (IsPlayerAtBomb(bomb))
             gameObject.SetActive(false);
-
         _avaliableBombCount--;
     }
 
@@ -66,6 +67,7 @@ public class BombLaying : Explosion
         {
             case "BreakWall":
                 PowerupsGenerator.GenerateNewPowerup(hit.transform.position);
+                ClearBarriersForAllIntelEnemies(hit.transform.position);
                 hit.transform.gameObject.SetActive(false);
                 break;
             case "Hero":
@@ -82,6 +84,21 @@ public class BombLaying : Explosion
                 break;
         }
     }
-
+    private void ClearBarriersForAllIntelEnemies(Vector3 wallPosition)
+    {
+        foreach (var intelEnemy in GameObject.FindGameObjectsWithTag("IntelligentEnemy"))
+        {
+            var roundWallPos = GetRoundPosition.GetPoint(wallPosition);
+            intelEnemy.GetComponent<IntelligentEnemiesController>().ClearPositionOnField(roundWallPos);
+        }
+    }
+    private void FillBarriersForAllIntelEnemies(Vector3 bombPosition)
+    {
+        foreach (var intelEnemy in GameObject.FindGameObjectsWithTag("IntelligentEnemy"))
+        {
+            var roundWallPos = GetRoundPosition.GetPoint(bombPosition);
+            intelEnemy.GetComponent<IntelligentEnemiesController>().FillPositionOnField(roundWallPos);
+        }
+    }
 
 }

@@ -10,18 +10,20 @@ public class IntelligentEnemiesController : EnemiesController
     private int _rowsCount;
 
     private List<Point> _pathToAim;
-    private float _waitBeforeUpdate;
     private Point prePlayerPos;
-    
+    private bool[,] gameField;
     private void Start()
     {
         _pathToAim = new List<Point>();
-        _waitBeforeUpdate = 0.5f;
+        GetFieldSizes();
+        gameField = new bool[_columnsCount, _rowsCount];
+        GetGameField(GetAllWallsOnPlane());
+
         StartCoroutine(GetNewPath());
     }
     private void Update()
     {
-        prePlayerPos = (GetPlayerPosition());//GetRoundPosition.GetRoundPointFromPoint(GetPlayerPosition());
+        prePlayerPos = GetPlayerPosition();
     }
     protected override void MoveInDirection()
     {
@@ -62,12 +64,10 @@ public class IntelligentEnemiesController : EnemiesController
     {
         var playerPos = GetPlayerPosition();
         var intelEnemyPos = GetIntelligentEnemyPosition();
-        var gameField = GetGameField(GetAllWallsOnPlane());
 
         _pathToAim = AStartAlgorithm.FindPath(gameField, intelEnemyPos, playerPos);
-       // yield return new WaitForSeconds(_waitBeforeUpdate);
-        yield return new WaitWhile(()=>playerPos==prePlayerPos);
 
+        yield return new WaitWhile(()=>playerPos==prePlayerPos);
         StartCoroutine(GetNewPath());
     }
 
@@ -84,16 +84,21 @@ public class IntelligentEnemiesController : EnemiesController
         _columnsCount = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GameInitializer>().columnsCount;
         _rowsCount = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<GameInitializer>().rowsCount;
     }
-    private bool[,] GetGameField(List<Point> wallsList)
+    private void GetGameField(List<Point> wallsList)
     {
-        GetFieldSizes();
-
-        var gameField = new bool[_columnsCount, _rowsCount];
         for (int i = 0; i < _rowsCount; i++)
             for (int j = 0; j < _columnsCount; j++)
                 gameField[j, i] = (wallsList.Exists(point => point.X == j && point.Y == i)) ? true : false;
-        return gameField;
     }
+    public void ClearPositionOnField(Point breakWallPoint)
+    {
+        gameField[breakWallPoint.X, breakWallPoint.Y] = false;
+    }
+    public void FillPositionOnField(Point bombPos)
+    {
+        gameField[bombPos.X, bombPos.Y] = true;
+    }
+
     private List<Point> GetWallsOfType(string wallType)
     {
         var listOfWalls = new List<Point>();

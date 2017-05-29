@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PowerupsController : MonoBehaviour
 {
-    private int _bigRadius;
+    private const int _bigRadius=2;
     private float _extraSpeed;
     private PlayerController _player;
     private BombLaying _bomb;
@@ -12,7 +12,6 @@ public class PowerupsController : MonoBehaviour
 
     void Start ()
     {
-        _bigRadius = 2;
         _extraSpeed = 4f;
         _player = GetComponent<PlayerController>();
         _bomb = GetComponent<BombLaying>();
@@ -52,22 +51,17 @@ public class PowerupsController : MonoBehaviour
     }
     private void SetRadius()
     {
-        if (_bomb.radius != _bigRadius)
-        {
-            _bomb.radius = _bigRadius;
-            StartCoroutine(GetRadius());
-        }
-        else StopCoroutine(GetRadius());
+        _bomb.radius = _bigRadius;
+        transform.FindChild("BigRadius").gameObject.SetActive(true);
     }
 
     private void ExtraSpeed()
     {
         _player.speed = _extraSpeed;
-        StartCoroutine(GetPlayerPos("Effects/SpeedEffect"));
+        transform.FindChild("SpeedEffect").gameObject.SetActive(true);
     }
     private void WallPass()
     {
-       
         var breakWalls = GameObject.FindGameObjectsWithTag("BreakWall");
         foreach (var wall in breakWalls)
         {
@@ -75,30 +69,10 @@ public class PowerupsController : MonoBehaviour
             Physics.IgnoreCollision(_collider, wall.GetComponent<Collider>());
         }
     }
-
     private void ChangeBreakWallColor(GameObject wall)
     {
-        wall.GetComponent<Renderer>().material.color = Color.white;
-    }
-    private IEnumerator GetPlayerPos(string path)
-    {
-        var effect = new DynamicObjectsCreator().CreateDynamicGameObject(path, GetPlayerPosition());
-        yield return new WaitForSeconds(0.1f);
-        StartCoroutine(GetPlayerPos(path));
-    }
-    private IEnumerator GetRadius()
-    {
-        var position = GetPlayerPosition();
-        var radius = new DynamicObjectsCreator().CreateDynamicGameObject("Effects/BigRadius", position);
-        yield return new WaitForSeconds(0.1f);
-        if (position != GetPlayerPosition())
-        {
-            Destroy(radius);
-        }
-        StartCoroutine(GetRadius());
-    }
-    private Vector3 GetPlayerPosition()
-    {
-        return GameObject.FindGameObjectWithTag("Hero").transform.position;
+        Color breakWallsColor = wall.GetComponent<Renderer>().material.color;
+        breakWallsColor.a = 0.75f;
+        wall.GetComponent<Renderer>().material.color= breakWallsColor;
     }
 }
