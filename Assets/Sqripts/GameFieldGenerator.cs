@@ -13,6 +13,7 @@ public class GameFieldGenerator : ObjectCreatorBase
     private int _radiusAroundPlayer = 2;
     private System.Random _random;
     private DynamicObjectsCreator _dynamicObj;
+    private ProDynamicObject _proDynamicObj;
     private StaticObjectsCreator _staticObj;
 
 
@@ -24,6 +25,7 @@ public class GameFieldGenerator : ObjectCreatorBase
         _random = new System.Random();
         _staticObj = new StaticObjectsCreator(columnsCount, rowsCount);
         _dynamicObj = new DynamicObjectsCreator();
+        _proDynamicObj = new ProDynamicObject();
     }
 
     public void GenerateFieldWithGameObjects(int enemiesCount, bool withIntelligentEnemy, int intelligentEnemiesCount=0)
@@ -83,24 +85,25 @@ public class GameFieldGenerator : ObjectCreatorBase
                 if (person == Characters.Player)
                 {
                     MakeDistanceBetweenPlayerAndEnemy(index2, index1);
-                    _dynamicObj.CreatePlayer(index1, index2);
+                    _proDynamicObj.CreatePlayer(index1, index2);
                     break;
                 }
                 else if (person == Characters.Enemy)
                 {
-                    _dynamicObj.CreateEnemy(index1, index2);
+                    _proDynamicObj.CreateEnemy(index1, index2);
                     _isPlaceFilled[index2, index1] = true;
                     enemyCount--;
                 }
                 else if (person == Characters.IntelligentEnemy)
                 {
-                    _dynamicObj.CreateIntelligentEnemy(index1, index2);
+                    _proDynamicObj.CreateIntelligentEnemy(index1, index2);
                     _isPlaceFilled[index2, index1] = true;
                     enemyCount--;
                 }
             }
         }
     }
+   
     private void MakeDistanceBetweenPlayerAndEnemy(int xPlayerPosition, int zPlayerPosition)
     {
         List<int> area = PlayerArea(xPlayerPosition, zPlayerPosition);

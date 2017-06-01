@@ -12,7 +12,7 @@ public static class GetRoundPosition
     {
         return new Point((int)Mathf.Round(position.X), (int)Mathf.Round(position.Y));
     }
-    public static Vector3 RoundXZCoordinate(Vector3 vector)
+    public static Vector3 RoundXZCoordinate(this Vector3 vector)
     {
         return new Vector3(Mathf.Round(vector.x), vector.y, Mathf.Round(vector.z));
     }

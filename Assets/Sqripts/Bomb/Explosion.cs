@@ -24,7 +24,10 @@ public class Explosion : MonoBehaviour
     {
         var raysOfExplosion = explosion.GetComponentsInChildren<ParticleSystem>();
         foreach (var ray in raysOfExplosion)
-            ray.startLifetime = radius;
+        {
+            var rayMain = ray.main;
+            rayMain.startLifetime = radius;
+        }
     }
     private List<RaycastHit> CheckHits(float radius)
     {

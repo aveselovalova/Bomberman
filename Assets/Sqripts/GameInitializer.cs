@@ -12,7 +12,7 @@ public class GameInitializer : MonoBehaviour
     public bool intelligentEnemy = false;
     public int intelligentEnemyCount = 0;
     private float _cameraOffset = 0.5f;
-    private float _cameraZPos = -5f;
+    private float _cameraZPos = -2f;
     private float _cameraYPos = 10;
     private float _cameraXPosRelativelyRows = 2;
     GameFieldGenerator bombermanField;

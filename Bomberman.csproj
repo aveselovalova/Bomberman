@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -132,6 +130,7 @@
     <Compile Include="Assets\Sqripts\Bomb\Explosion.cs" />
     <Compile Include="Assets\Sqripts\CharactersController\EnemiesController.cs" />
     <Compile Include="Assets\Sqripts\CharactersController\IntelligentEnemiesController.cs" />
+    <Compile Include="Assets\Sqripts\CharactersController\MoveDynamicObject.cs" />
     <Compile Include="Assets\Sqripts\CharactersController\MovementController.cs" />
     <Compile Include="Assets\Sqripts\CharactersController\MovementControllerBase.cs" />
     <Compile Include="Assets\Sqripts\CharactersController\PlayerController.cs" />
@@ -141,6 +140,7 @@
     <Compile Include="Assets\Sqripts\ObjectsCreator\DynamicObjectsBase.cs" />
     <Compile Include="Assets\Sqripts\ObjectsCreator\DynamicObjectsCreator.cs" />
     <Compile Include="Assets\Sqripts\ObjectsCreator\GeneratorBase.cs" />
+    <Compile Include="Assets\Sqripts\ObjectsCreator\ProDinamicObject.cs" />
     <Compile Include="Assets\Sqripts\ObjectsCreator\StaticObjectsBase.cs" />
     <Compile Include="Assets\Sqripts\ObjectsCreator\StaticObjectsCreator.cs" />
     <Compile Include="Assets\Sqripts\Powerups\Powerups.cs" />

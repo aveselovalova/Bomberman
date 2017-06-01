@@ -1,29 +1,32 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemiesController : MovementController
 {
-    private System.Random _rand = new System.Random();
+    public AudioClip deathSound;
+    public AudioClip attackSound;
     protected const float _timeForRotation = 3f;
     protected float _timer = 0;
+    private System.Random _rand = new System.Random();
     private int _directionAmount = 4;
     private float _speed=1.5f;
+    private  Animator _animator;
     
     private void Start()
     {
         ChoseDirection();
+        _animator = GetComponent<Animator>();
     }
     public void FixedUpdate()
     {
         Move(_speed);
         ChoseRotation();
     }
+   
     protected override void MoveInDirection()
     {
         if (_timer == 0)
         {
+            transform.position = transform.position.RoundXZCoordinate();
             ChoseDirection();
             _timer = _timeForRotation;
         }
@@ -63,9 +66,27 @@ public class EnemiesController : MovementController
                 }
         }
     }
-    private void OnCollisionStay(Collision other)
+    protected void EnemiesDeathPlay()
+    {
+        soundSource.PlayOneShot(deathSound);
+    }
+    protected void AttackPlay()
+    {
+        soundSource.PlayOneShot(attackSound);
+    }
+    protected virtual void OnCollisionStay(Collision other)
     {
         if (!other.gameObject.CompareTag("Ground"))
+        {
+            transform.position = transform.position.RoundXZCoordinate();
             ChoseDirection();
+        }
+    }
+    protected virtual void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Hero"))
+        {
+            _animator.SetTrigger("Attack");
+        }
     }
 }

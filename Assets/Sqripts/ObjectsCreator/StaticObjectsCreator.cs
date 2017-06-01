@@ -11,8 +11,8 @@ public class StaticObjectsCreator : StaticObjectsBase
     private float _yPlanePosition = 0;
     private float _dividerForCorrectPlaneSize = 10f;
     private float _planeHeight = 1;
-
-    private float _cubeEdge = 0.8f;
+    
+    private float _cubeEdge = 0.9f;
     private float _yCubePosition = 0.4f;
 
     public StaticObjectsCreator(int columns, int rows)

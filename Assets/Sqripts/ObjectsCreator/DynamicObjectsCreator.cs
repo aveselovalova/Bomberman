@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DynamicObjectsCreator : DynamicObjectsBase
 {
-    private float _yPos = 1f;
+    protected float _yPos = 1f;
     public GameObject CreateDynamicGameObject(string pathToObject, Vector3 objectPosition)
     {
         var gameObj = ResourceLoader.LoadItem(pathToObject);

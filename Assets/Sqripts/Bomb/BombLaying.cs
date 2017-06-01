@@ -7,10 +7,14 @@ public class BombLaying : Explosion
 
     public int radius;
     public int maxBombCount;
+    public AudioClip setBombSound;
+    public AudioClip explosionSound;
 
     private float _bombLifetime;
     private int _avaliableBombCount;
     private Score _scoreCounter;
+    private Animator _animator;
+    private AudioSource _soundSource;
 
     private void Start()
     {
@@ -19,43 +23,79 @@ public class BombLaying : Explosion
         _bombLifetime = 1.5f;
         _avaliableBombCount = 1;
         _scoreCounter = GetComponent<Score>();
+        _animator = GetComponent<Animator>();
+        _soundSource = GetComponentInChildren<AudioSource>();
+
     }
     private void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Space) && IsCountOK())
             StartCoroutine("Explosion", _bombLifetime);
     }
-   
+
     private bool IsCountOK()
     {
         return _avaliableBombCount <= maxBombCount && _avaliableBombCount > 0;
     }
-  
+
     private IEnumerator Explosion(float bombLifetime)
     {
-        var bombPosition = GetRoundPosition.RoundXZCoordinate(transform.position);
+        var bombPosition = transform.position.RoundXZCoordinate();
         var yOffset = 0.3f;
-        var newBombPosition = new Vector3(bombPosition.x, bombPosition.y - yOffset, bombPosition.z);
-
+        var newBombPosition = new Vector3(bombPosition.x, bombPosition.y + yOffset, bombPosition.z);
+        _soundSource.PlayOneShot(setBombSound);
         var bomb = new DynamicObjectsCreator().CreateDynamicGameObject("Bomb/Bomb", newBombPosition);
-
+        _animator.SetTrigger("SetBomb");
         _avaliableBombCount++;
         FillBarriersForAllIntelEnemies(newBombPosition);
         yield return new WaitForSeconds(bombLifetime);
 
         bomb.SetActive(false);
+        _soundSource.PlayOneShot(explosionSound);
         ClearBarriersForAllIntelEnemies(newBombPosition);
-        MakeExplosion(bomb,"Bomb/ExplosionAll", radius, DestroyGameObj);
+        MakeExplosion(bomb, "Bomb/ExplosionAll", radius, DestroyGameObj);
 
-        if (IsPlayerAtBomb(bomb))
-            gameObject.SetActive(false);
+        DestroyCharacters(bomb);
+
         _avaliableBombCount--;
     }
 
-    public bool IsPlayerAtBomb(GameObject bomb)
+    public bool IsCharacterAtBomb(GameObject bomb, GameObject character)
     {
-        return (bomb.transform.position.x == Mathf.Round(transform.position.x) &&
-                bomb.transform.position.z == Mathf.Round(transform.position.z));
+        return (bomb.transform.position.x == Mathf.Round(character.transform.position.x) &&
+                bomb.transform.position.z == Mathf.Round(character.transform.position.z));
+    }
+    private void DestroyCharacterAtBomb(GameObject bomb, string characterName, int timeOfDestroy = 3)
+    {
+
+        var characters = GameObject.FindGameObjectsWithTag(characterName);
+        foreach (var character in characters)
+            if (IsCharacterAtBomb(bomb, character))
+            {
+
+                character.GetComponent<Animator>().SetTrigger("Killed");
+                Destroy(character, timeOfDestroy);
+                switch (characterName)
+                {
+                    case "Enemy":
+                        _scoreCounter.UpdateScoreForEnemy(Characters.Enemy);
+                        break;
+                    case "IntelligentEnemy":
+                        _scoreCounter.UpdateScoreForEnemy(Characters.IntelligentEnemy);
+                        break;
+                    case "Hero":
+                        enabled = false;
+                        GetComponent<Score>().OutputFailText();
+                        break;
+                }
+            }
+
+    }
+    private void DestroyCharacters(GameObject bomb)
+    {
+        DestroyCharacterAtBomb(bomb,"Hero");
+        DestroyCharacterAtBomb(bomb,"Enemy");
+        DestroyCharacterAtBomb(bomb, "IntelligentEnemy");
     }
     public void DestroyGameObj(List<RaycastHit> listOfHits)
     {
@@ -76,7 +116,8 @@ public class BombLaying : Explosion
                 break;
             case "Enemy":
                 _scoreCounter.UpdateScoreForEnemy(Characters.Enemy);
-                hit.transform.gameObject.SetActive(false);
+                hit.transform.GetComponent<Animator>().SetTrigger("Killed");
+                Destroy(hit.transform.gameObject, 3);
                 break;
             case "IntelligentEnemy":
                 _scoreCounter.UpdateScoreForEnemy(Characters.IntelligentEnemy);

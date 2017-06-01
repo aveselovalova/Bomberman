@@ -25,16 +25,41 @@ public class MovementController : MovementControllerBase
         if (horizontalMovement == 0)
         {
             if (verticalMovement < 0)
-                GetObjectRotation(_rotationAngle + 90);
+                GetObjectRotation(_rotationAngle + 180);
             if (verticalMovement > 0)
-                GetObjectRotation(_rotationAngle - 90);
+                GetObjectRotation(_rotationAngle);
         }
         if (verticalMovement == 0)
         {
             if (horizontalMovement > 0)
-                GetObjectRotation(_rotationAngle);
+                GetObjectRotation(_rotationAngle + 90);
             if (horizontalMovement < 0)
-                GetObjectRotation(_rotationAngle + 180);
+                GetObjectRotation(_rotationAngle - 90);// + 180);
         }
     }
+    protected void Awake()
+    {
+        soundSource = GetComponentInChildren<AudioSource>();
+    }
+    protected override void CharactersStepPlay()
+    {
+        soundSource.PlayOneShot(stepSound, .4f);
+    }
+    //protected override void ChoseRotation()
+    //{
+    //    if (horizontalMovement == 0)
+    //    {
+    //        if (verticalMovement < 0)
+    //            GetObjectRotation(_rotationAngle + 90);
+    //        if (verticalMovement > 0)
+    //            GetObjectRotation(_rotationAngle - 90);
+    //    }
+    //    if (verticalMovement == 0)
+    //    {
+    //        if (horizontalMovement > 0)
+    //            GetObjectRotation(_rotationAngle);
+    //        if (horizontalMovement < 0)
+    //            GetObjectRotation(_rotationAngle + 180);
+    //    }
+    //}
 }
