@@ -6,15 +6,16 @@ public class EnemiesController : MovementController
     public AudioClip attackSound;
     protected const float _timeForRotation = 3f;
     protected float _timer = 0;
+    protected Animator animator;
+
     private System.Random _rand = new System.Random();
     private int _directionAmount = 4;
     private float _speed=1.5f;
-    private  Animator _animator;
     
     private void Start()
     {
         ChoseDirection();
-        _animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
     public void FixedUpdate()
     {
@@ -86,7 +87,7 @@ public class EnemiesController : MovementController
     {
         if (other.gameObject.CompareTag("Hero"))
         {
-            _animator.SetTrigger("Attack");
+            animator.SetTrigger("Attack");
         }
     }
 }

@@ -72,9 +72,7 @@ public class BombLaying : Explosion
         foreach (var character in characters)
             if (IsCharacterAtBomb(bomb, character))
             {
-
-                character.GetComponent<Animator>().SetTrigger("Killed");
-                Destroy(character, timeOfDestroy);
+                DestroyAndUntagged(character);
                 switch (characterName)
                 {
                     case "Enemy":
@@ -116,14 +114,19 @@ public class BombLaying : Explosion
                 break;
             case "Enemy":
                 _scoreCounter.UpdateScoreForEnemy(Characters.Enemy);
-                hit.transform.GetComponent<Animator>().SetTrigger("Killed");
-                Destroy(hit.transform.gameObject, 3);
+                DestroyAndUntagged(hit.transform.gameObject);
                 break;
             case "IntelligentEnemy":
                 _scoreCounter.UpdateScoreForEnemy(Characters.IntelligentEnemy);
-                hit.transform.gameObject.SetActive(false);
+                DestroyAndUntagged(hit.transform.gameObject);
                 break;
         }
+    }
+    private void DestroyAndUntagged(GameObject gameObj)
+    {
+        gameObj.GetComponent<Animator>().SetTrigger("Killed");
+        Destroy(gameObj, 3);
+        gameObj.tag = "Untagged";
     }
     private void ClearBarriersForAllIntelEnemies(Vector3 wallPosition)
     {

@@ -12,7 +12,6 @@ public class IntelligentEnemiesController : EnemiesController
     private List<Point> _pathToAim;
     private Point prePlayerPos;
     private bool[,] gameField;
-    private Animator _animator;
 
     private void Start()
     {
@@ -20,7 +19,7 @@ public class IntelligentEnemiesController : EnemiesController
         GetFieldSizes();
         gameField = new bool[_columnsCount, _rowsCount];
         GetGameField(GetAllWallsOnPlane());
-        _animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
         StartCoroutine(GetNewPath());
     }
@@ -34,7 +33,7 @@ public class IntelligentEnemiesController : EnemiesController
             base.MoveInDirection();
         else
             ChoseNewDirection();
-        
+
     }
     protected void ChoseNewDirection()
     {
@@ -70,7 +69,7 @@ public class IntelligentEnemiesController : EnemiesController
 
         _pathToAim = AStartAlgorithm.FindPath(gameField, intelEnemyPos, playerPos);
 
-        yield return new WaitWhile(()=>playerPos==prePlayerPos);
+        yield return new WaitWhile(() => playerPos == prePlayerPos);
         StartCoroutine(GetNewPath());
     }
 
@@ -114,18 +113,4 @@ public class IntelligentEnemiesController : EnemiesController
     {
         return GetWallsOfType("ConcreteWall").Concat(GetWallsOfType("BreakWall")).ToList();
     }
-    //protected override void OnCollisionStay(Collision other)
-    //{
-    //    if (!other.gameObject.CompareTag("Ground") && (_pathToAim == null))
-    //         base.OnCollisionStay(other);
-    //}
-
-    protected override void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Hero"))
-        {
-            _animator.SetTrigger("Attack");
-        }
-    }
-
 }

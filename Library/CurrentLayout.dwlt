@@ -44,7 +44,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 1
-  controlID: 47
+  controlID: 23
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 48
+  controlID: 24
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -87,8 +87,8 @@ MonoBehaviour:
     y: 0
     width: 277
     height: 635
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 49
+  controlID: 25
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 50
+  controlID: 26
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -344,11 +344,9 @@ MonoBehaviour:
     m_KeySerializationHelper:
     - {fileID: 1107466345451656416, guid: 12b77fd57d3844642ac4b2f0e8df323d, type: 2}
     - {fileID: 1107248271895391242, guid: c1ec030bba8f22a45bd1d004be83b249, type: 2}
-    - {fileID: 1107414519243890368, guid: 1a8d1c410133217479179f554bd8157d, type: 2}
     m_ValueSerializationHelper:
     - {x: 384.6, y: 333.6}
     - {x: 432.6, y: 153.6}
-    - {x: 432.6, y: 160.20001}
   m_PreviewAnimator: {fileID: 0}
   m_AnimatorController: {fileID: 9100000, guid: c1ec030bba8f22a45bd1d004be83b249,
     type: 2}
@@ -430,19 +428,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs/Resources/Walls
+    - Assets/Prefabs/Resources/Characters
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs/Resources/Walls
+  - Assets/Prefabs/Resources/Characters
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Aleksandra\Documents\GitHub\Bomberman
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 128}
-    m_SelectedIDs: 462f0000
-    m_LastClickedID: 12102
-    m_ExpandedIDs: 00000000922b0000da2b0000122c0000762c0000082e0000e22e0000862f0000d82f000080300000823000008430000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 112}
+    m_SelectedIDs: ce290000
+    m_LastClickedID: 10702
+    m_ExpandedIDs: 00000000542500007e2500009c250000d42500003a260000de270000d428000080290000e4290000062b0000082b00000a2b000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -470,7 +468,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000922b0000bc2b0000da2b0000122c0000762c0000e22e0000862f0000d82f0000803000008230000084300000
+    m_ExpandedIDs: 00000000542500009c250000d42500003a260000de270000d428000080290000e4290000062b0000082b00000a2b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -551,7 +549,7 @@ MonoBehaviour:
     y: 99
     width: 275
     height: 614
-  m_ScrollPosition: {x: 0, y: 0}
+  m_ScrollPosition: {x: 0, y: 84.95508}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: 218
@@ -586,9 +584,9 @@ MonoBehaviour:
     height: 336
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: 16acf7ffc6acf7fff8adf7ffde22fdff2cfdfeff72d5ffff86f9ffff00000000
+    m_SelectedIDs: 8a2a0000
+    m_LastClickedID: 10890
+    m_ExpandedIDs: e2fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -670,7 +668,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.071708225, y: 0.9236623, z: -0.21373652, w: 0.30989236}
     speed: 2
-    m_Value: {x: 0.07170784, y: 0.92365736, z: -0.21373537, w: 0.3098907}
+    m_Value: {x: 0.071708225, y: 0.92366236, z: -0.21373652, w: 0.30989236}
   m_Size:
     m_Target: 2.253116
     speed: 2
